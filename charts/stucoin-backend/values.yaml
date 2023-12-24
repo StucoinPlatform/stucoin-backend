@@ -1,0 +1,7 @@
+appName: stucoin-backend
+
+port: 7000
+
+# TODO - add image of postgres and mongo here
+
+# TODO - add arguments for deployment here

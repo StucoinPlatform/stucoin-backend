@@ -1,0 +1,11 @@
+apiVersion: v2
+name: stucoin-backend
+version: 0.1.0
+appVersion: latest
+description: A Helm chart for Kubernetes to deploy the StuCoin Platform backend
+home: https://github.com/StucoinPlatform/stucoin-backend.git
+type: application
+
+# TODO - Add dependencies here
+
+# TODO: add sources here
