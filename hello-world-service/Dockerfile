@@ -18,6 +18,6 @@ FROM scratch AS hello-world-service
 LABEL language="rust"
 LABEL org.opencontainers.image.source https://github.com/StucoinPlatform/stucoin-backend
 
-COPY --from=builder /hello-world-service/target/x86_64-unknown-linux-musl/release/hello-world-service /hello-world-service
+COPY --from=builder /hello-world-service/target/x86_64-unknown-linux-musl/release/hello-world-service-server /hello-world-service
 ENTRYPOINT [ "/hello-world-service" ]
 EXPOSE 50051
