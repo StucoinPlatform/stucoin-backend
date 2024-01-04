@@ -1,4 +1,4 @@
-FROM messense/rust-musl-cross:x86_64-musl AS chef
+FROM messense/rust-musl-cross:x86_64-musl as chef
 RUN cargo install cargo-chef
 WORKDIR /hello-world-service
 
@@ -8,7 +8,7 @@ RUN cargo chef prepare --recipe-path recipe.json
 
 FROM chef AS builder
 COPY --from=planner /hello-world-service/recipe.json recipe.json
-RUN cargo chef cook --release --recipe-path recipe.json
+RUN cargo chef cook --release --target x86_64-unknown-linux-musl --recipe-path recipe.json
 COPY . .
 RUN cargo build --release --bin x86_64-unknown-linux-musl
 
