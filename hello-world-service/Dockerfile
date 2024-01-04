@@ -1,5 +1,5 @@
 FROM messense/rust-musl-cross:x86_64-musl AS chef
-RUN apk --no-cache add protobuf
+RUN apt-get update && apt-get install -y protobuf-compiler
 RUN cargo install cargo-chef
 WORKDIR /hello-world-service
 
