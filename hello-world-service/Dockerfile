@@ -1,4 +1,4 @@
-FROM messense/rust-musl-cross:x86_64-musl as chef
+FROM messense/rust-musl-cross:x86_64-musl AS chef
 RUN cargo install cargo-chef
 WORKDIR /hello-world-service
 
