@@ -1,5 +1,6 @@
 FROM messense/rust-musl-cross:x86_64-musl AS chef
 RUN cargo install cargo-chef
+RUN cargo add protoc
 WORKDIR /hello-world-service
 
 FROM chef AS planner
