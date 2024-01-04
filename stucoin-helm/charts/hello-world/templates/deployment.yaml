@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metada:
+    name: {{ include "hello-world.fullname" . }}
+    labels:
+        {{- include "hello-world.labels" . | nindent 4 }}
+spec:
+    {{- if not .Values.autoscaling.enabled }}
+    replicas: {{ .Values.replicaCount }}
+    {{- end }}
+    selector:
+        matchLabels:
+            {{- include "hello-world.selectorLabels" . | nindent 4 }}
+    template:
+        metadata:
+            labels:
+                {{- include "hello-world.selectorLabels" . | nindent 6 }}
+        spec:
+            containers:
+                - name: {{ .Chart.Name }}
+                  image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+                  imagePullPolicy: {{ .Values.image.pullPolicy }}
+                  ports:
+                      - name: http
+                        containerPort: 50051
+                        protocol: TCP
+                  livenessProbe:
+                      httpGet:
+                          path: /
+                          port: http
+                  readinessProbe:
+                      httpGet:
+                          path: /
+                          port: http
+                  resources:
+                      {{- toYaml .Values.resources | nindent 12 }}
