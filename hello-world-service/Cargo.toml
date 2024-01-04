@@ -1,0 +1,22 @@
+[package]
+name = "hello-world-service"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[[bin]]
+name = "hello-world-service-server"
+path = "src/server.rs"
+
+[[bin]]
+name = "hello-world-service-client"
+path = "src/client.rs"
+
+[dependencies]
+tokio = { version = "1.19.2", features = ["macros", "rt-multi-thread"] }
+prost = "0.12.3"
+tonic = "0.10.2"
+
+[build-dependencies]
+tonic-build = "0.10.2"
