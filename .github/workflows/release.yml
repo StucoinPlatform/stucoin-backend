@@ -62,6 +62,6 @@ jobs:
           file: ./hello-world-service/Dockerfile
           push: true
           tags: |
-            cpprian/${{ env.HELLO_WORLD_IMAGE_NAME }}:latest
-            ghcr.io/cpprian/${{ env.HELLO_WORLD_IMAGE_NAME }}:latest
+            StucoinPlatform/${{ env.HELLO_WORLD_IMAGE_NAME }}:latest
+            ghcr.io/StucoinPlatform/${{ env.HELLO_WORLD_IMAGE_NAME }}:latest
 
