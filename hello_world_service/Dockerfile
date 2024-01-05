@@ -16,7 +16,7 @@ RUN cargo build --release --target x86_64-unknown-linux-musl
 FROM scratch AS hello_world_service
 
 LABEL language="rust"
-LABEL org.opencontainers.image.source https://github.com/StucoinPlatform/stucoin-backend
+LABEL org.opencontainers.image.source https://github.com/cpprian/stucoin-backend
 
 COPY --from=builder /hello_world_service/target/x86_64-unknown-linux-musl/release/hello_world_service_server /hello_world_service
 ENTRYPOINT [ "/hello_world_service" ]
