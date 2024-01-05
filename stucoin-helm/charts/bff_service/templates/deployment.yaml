@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metada:
-    name: {{ include "hello_world.fullname" . }}
+    name: {{ include "bff.fullname" . }}
     labels:
-        {{- include "hello_world.labels" . | nindent 4 }}
+        {{- include "bff.labels" . | nindent 4 }}
 spec:
     {{- if not .Values.autoscaling.enabled }}
     replicas: {{ .Values.replicaCount }}
     {{- end }}
     selector:
         matchLabels:
-            {{- include "hello_world.selectorLabels" . | nindent 4 }}
+            {{- include "bff.selectorLabels" . | nindent 4 }}
     template:
         metadata:
             labels:
-                {{- include "hello_world.selectorLabels" . | nindent 6 }}
+                {{- include "bff.selectorLabels" . | nindent 6 }}
         spec:
             containers:
                 - name: {{ .Chart.Name }}

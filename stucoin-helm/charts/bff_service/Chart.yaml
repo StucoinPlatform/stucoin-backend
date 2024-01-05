@@ -1,0 +1,4 @@
+apiVersion: v2
+name: bff_service
+description: A Helm chart for the bff_service that is BFF pattern for stucoin
+version: 0.1.0

@@ -9,7 +9,8 @@ on:
 env:
   CARGO_TERM_COLOR: always
   REGISTRY: ghcr.io
-  HELLO_WORLD_IMAGE_NAME: stucoin-hello-world
+  HELLO_WORLD_IMAGE_NAME: stucoin_hello_world
+  BFF_IMAGE_NAME: stucoin_bff
 
 jobs:
   build:
@@ -64,4 +65,14 @@ jobs:
           tags: |
             cpprian/${{ env.HELLO_WORLD_IMAGE_NAME }}:latest
             ghcr.io/cpprian/${{ env.HELLO_WORLD_IMAGE_NAME }}:latest
+
+      - name: Build and push the bff image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./bff_service
+          file: ./bff_service/Dockerfile
+          push: true
+          tags: |
+            cpprian/${{ env.BFF_IMAGE_NAME }}:latest
+            ghcr.io/cpprian/${{ env.BFF_IMAGE_NAME }}:latest
 

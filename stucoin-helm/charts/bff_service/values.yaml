@@ -1,12 +1,12 @@
-replicaCount: 1
+replicaCount: 2
 
 image:
-  repository: ghcr.io/cpprian/stucoin_hello_world
+  repository: ghcr.io/cpprian/bff_service
   tag: latest
 
 imagePullSecrets: []
-nameOverride: "stucoin_hello_world"
-fullnameOverride: "stucoin_hello_world"
+nameOverride: "stucoin_bff"
+fullnameOverride: "stucoin_bff"
 
 args: []
 
@@ -20,9 +20,9 @@ podAnnotations: {}
 podSecurityContext: {}
 
 service:
-  name: hello_world
-  type: ClusterIP
-  port: 50051
+  name: bff
+  type: NodePort
+  port: 50052
 
 ingress:
   enabled: false

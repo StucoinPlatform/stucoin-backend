@@ -1,16 +1,16 @@
-{{- define "hello-world.fullname" -}}
+{{- define "hello_world.fullname" -}}
   {{- printf "%s-%s" .Release.Name .Chart.Name }}
 {{- end -}}
 
-{{- define "hello-world.labels" -}}
-  app.kubernetes.io/name={{ include "hello-world.name" . }}
+{{- define "hello_world.labels" -}}
+  app.kubernetes.io/name={{ include "hello_world.name" . }}
   app.kubernetes.io/instance={{ .Release.Name }}
 {{- end -}}
 
-{{- define "hello-world.selectorLabels" -}}
-  {{- include "hello-world.labels" . | nindent 4 }}
+{{- define "hello_world.selectorLabels" -}}
+  {{- include "hello_world.labels" . | nindent 4 }}
 {{- end -}}
 
-{{- define "hello-world.name" -}}
-  hello-world
+{{- define "hello_world.name" -}}
+  hello_world
 {{- end -}}

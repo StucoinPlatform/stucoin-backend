@@ -1,4 +1,4 @@
 apiVersion: v2
-name: hello-world
+name: hello_world
 description: A Helm chart for the hello_world gRPC service.
 version: 0.1.0
