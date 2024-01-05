@@ -58,8 +58,8 @@ jobs:
       - name: Build and push the hello-world image
         uses: docker/build-push-action@v2
         with:
-          context: ./hello-world-service
-          file: ./hello-world-service/Dockerfile
+          context: ./src/hello-world-service
+          file: ./src/hello-world-service/Dockerfile
           push: true
           tags: |
             cpprian/${{ env.HELLO_WORLD_IMAGE_NAME }}:latest
