@@ -1,5 +1,5 @@
 [package]
-name = "bff-service"
+name = "bff_service"
 version = "0.1.0"
 edition = "2021"
 
