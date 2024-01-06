@@ -22,12 +22,6 @@ variable "keypair_name" {
     default = "kubeadm_stucoin_keypair"
 }
 
-variable "ubuntu_ami" {
-    type = string
-    description = "ubuntu ami"
-    default = "ami-053b0d53c279acc90"
-}
-
 variable "worker_nodes_count" {
     type = number
     description = "worker nodes count"

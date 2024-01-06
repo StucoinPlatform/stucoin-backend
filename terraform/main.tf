@@ -211,8 +211,25 @@ resource "aws_key_pair" "kubeadm_stucoin_key_pair" {
     public_key = tls_private_key.kubeadm_stucoin_tls_private_key.public_key_openssh
 }
 
+data "aws_ami" "ubuntu_ami" {
+    most_recent = true
+    owners = ["099720109477"]
+    filter {
+        name = "name"
+        values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    }
+    filter {
+        name = "virtualization-type"
+        values = ["hvm"]
+    }
+    filter {
+        name = "root-device-type"
+        values = ["ebs"]
+    }
+}
+
 resource "aws_instance" "kubeadm_stucoin_control_plane" {
-    ami = var.ubuntu_ami
+    ami = data.aws_ami.ubuntu_ami.id
     instance_type = "t3.micro"
     key_name = aws_key_pair.kubeadm_stucoin_key_pair.key_name
     associate_public_ip_address = true
@@ -237,7 +254,7 @@ resource "aws_instance" "kubeadm_stucoin_control_plane" {
 
 resource "aws_instance" "kubeadm_stucoin_worker_nodes" {
     count = var.worker_nodes_count
-    ami = var.ubuntu_ami
+    ami = data.aws_ami.ubuntu_ami.id
     instance_type = "t3.micro"
     key_name = aws_key_pair.kubeadm_stucoin_key_pair.key_name
     associate_public_ip_address = true
