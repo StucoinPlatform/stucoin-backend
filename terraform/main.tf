@@ -200,15 +200,22 @@ resource "aws_security_group" "kubeadm_stucoin_sg_worker_nodes" {
   }
 }
 
-// TODO: fix this, to be able to use the keypair in github actions
 resource "tls_private_key" "kubeadm_stucoin_tls_private_key" {
     algorithm = "RSA"
     rsa_bits = 4096
+
+provisioner "local-exec" {
+    command = "echo '${self.public_key_pem}' > ./pubkey.pem"
+  }
 }
 
 resource "aws_key_pair" "kubeadm_stucoin_key_pair" {
     key_name = var.keypair_name
     public_key = tls_private_key.kubeadm_stucoin_tls_private_key.public_key_openssh
+
+  provisioner "local-exec" {
+    command = "echo '${tls_private_key.kubeadm_stucoin_tls_private_key.private_key_pem}' > ./private-key.pem"
+  }
 }
 
 data "aws_ami" "ubuntu_ami" {
@@ -249,7 +256,9 @@ resource "aws_instance" "kubeadm_stucoin_control_plane" {
         Role = "Control plane node"
     }
 
-    // TODO: how to save hosts file?
+    provisioner "local-exec" {
+        command = "echo 'master ${self.public_ip}' >> ./files/hosts"
+    }
 }
 
 resource "aws_instance" "kubeadm_stucoin_worker_nodes" {
@@ -273,8 +282,9 @@ resource "aws_instance" "kubeadm_stucoin_worker_nodes" {
         Name = "Kubeadm Stucoin Worker Node ${count.index}"
         Role = "Worker node"
     }
-
-    // TODO: how to save hosts file?
+    provisioner "local-exec" {
+        command = "echo 'worker-${count.index} ${self.public_ip}' >> ./files/hosts"
+    }
 }
 
 resource "ansible_host" "kubeadm_stucoin_control_palne_host" {
@@ -284,7 +294,7 @@ resource "ansible_host" "kubeadm_stucoin_control_palne_host" {
     variables = {
         ansible_user = "ubuntu"
         ansible_host = aws_instance.kubeadm_stucoin_control_plane.public_ip
-        ansible_ssh_private_key_file = "" // TODO: how to get this in github actions?
+        ansible_ssh_private_key_file = "./private-key.pem"
         node_hostname = "master"
     }
 }
@@ -297,7 +307,7 @@ resource "ansible_host" "kubeadm_stucoin_worker_nodes_hosts" {
     variables = {
         ansible_user = "ubuntu"
         ansible_host = aws_instance.kubeadm_stucoin_worker_nodes[count.index].public_ip
-        ansible_ssh_private_key_file = "" // TODO: how to get this in github actions?
+        ansible_ssh_private_key_file = "./private-key.pem"
         node_hostname = "worker_${count.index}"
     }
 }
