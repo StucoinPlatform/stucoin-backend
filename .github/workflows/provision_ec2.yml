@@ -12,7 +12,7 @@ on:
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.TF_USER_AWS_KEY }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_USER_AWS_SECRET }}
-  
+
 jobs:
   provision-ec2:
     runs-on: ubuntu-latest
